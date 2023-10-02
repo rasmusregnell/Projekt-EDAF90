@@ -11,3 +11,9 @@ Deadlines:
 
 - 4/9: Projektplan
 - 20/9: Final report
+
+Starta appen:
+
+- git pull
+- npm install
+- npm start
