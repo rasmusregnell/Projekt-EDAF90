@@ -8,7 +8,7 @@ function GuessMovies (){
         setActor(actors[index]);
     }
     const[actor, setActor] = useState("");
-    useEffect(() => {getRandomActor()}, []);
+    useEffect(() => {getRandomActor()}, []); //Nu körs detta endast en gång tanken är att byta ut den tomma listan till en variabel som öndras vid start av nytt spel senare, typ tiden går ut.
 
     const[correctAnswers, setCorrectAnswer] = useState([]);
     const submitCorrect = (answer) => {
