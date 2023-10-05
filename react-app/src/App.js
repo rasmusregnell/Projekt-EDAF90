@@ -1,15 +1,18 @@
 //import logo from "./logo.svg";
 import "./App.css";
 //import React from 'react';
-import {NavLink} from 'react-router-dom';
+import Navbar from "./NavBar";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import  { Outlet } from 'react-router-dom';
+
 
 function App() {
   return (
     <div className="container py-4">
       <Header/>
       <Navbar/>
+      <Outlet/>
       <Footer />
     </div>
   );
@@ -31,28 +34,8 @@ function Footer(){
   );
 }
 
-function Navbar() {
-  return (
-    <ul className="nav nav-tabs">
-      <li className="nav-item">
-        <NavLink className="nav-link" to="">
-          Home
-        </NavLink>
-      </li> 
 
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/what-movies">
-          What movies is he in?
-        </NavLink>
-      </li> 
-
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/guess-time">
-          Guess the time
-        </NavLink>
-      </li>
-    </ul>
-  );
-}
 
 export default App;
+{/*28da6e60 
+exempel: https://www.omdbapi.com/?apikey=28da6e60&t=hope*/}

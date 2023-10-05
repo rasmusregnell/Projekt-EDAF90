@@ -1,5 +1,6 @@
 import { createBrowserRouter} from "react-router-dom";
 import App from './App';
+import GuessMovies from "./GuessMovies";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
       },
       {
         path: "what-movies",
-        element: <p>Detta är spel om gissa filmer hen varit med i</p>
+        element: <GuessMovies/>
       },
       {
         path: "guess-time",
