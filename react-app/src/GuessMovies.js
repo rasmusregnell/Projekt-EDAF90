@@ -5,6 +5,7 @@ function GuessMovies (){
     const gameLength = 60; //in seconds
     const actors = ["Jennifer Aniston", "Ryan Gosling", "Daniel Craig", "Johnny Depp", "Morgan Freeman", "Tom Hanks"];
     
+    // Returns a random actor
     const getRandomActor = () => {
         let index = Math.floor(Math.random() * actors.length);
         setActor(actors[index]);
@@ -12,6 +13,8 @@ function GuessMovies (){
 
     const[actor, setActor] = useState("");
     const[correctAnswers, setCorrectAnswer] = useState([]);
+
+    // Submits the answer to the correctAnswers array
     const submitCorrect = (answer) => {
         if(!correctAnswers.includes(answer)){
             setCorrectAnswer([...correctAnswers, answer]);
