@@ -69,7 +69,6 @@ function GuessMovies (){
 
     return(
         <div>
-        {!isTimerRunning && <button onClick={startGame}>Start!</button>}
         {isVisible && <div>
             <div className="container">
                 <h1>Guess the movies where {actor} is a main actor</h1>
@@ -88,6 +87,7 @@ function GuessMovies (){
             <div><h1>Points: {points}</h1></div>
             <div>{timer === 0 && <h1>Game Over!</h1>}</div>
         </div>}
+        {!isTimerRunning && <button onClick={startGame}>Start!</button>}
         </div>
     );
 }
