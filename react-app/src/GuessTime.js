@@ -1,29 +1,31 @@
-import { act } from "react-dom/test-utils";
 import GuessGame from "./GuessGame";
 import { useState, useEffect } from "react";
 
-function GuessMovies() {
+function GuessTime() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
-  const [actor, setActor] = useState("");
+  const [timeFrame, setTimeFrame] = useState([]);
+  const timeFrames = ["80-120", "100-140", "120-150"];
 
   useEffect(() => {
-    setActor(getRandomActor());
+    setTimeFrame(getRandomTimeFrame());
   }, []);
 
-  const actors = [
-    "Jennifer Aniston",
-    "Ryan Gosling",
-    "Daniel Craig",
-    "Johnny Depp",
-    "Morgan Freeman",
-    "Tom Hanks",
-  ];
+  function checkTimeFrame(runtime) {
+    const time = parseInt(runtime.split(" ")[0]);
+    const timeSpan = timeFrame.split("-");
+    return time > timeSpan[0] && time < timeSpan[1];
+  }
 
   const submitCorrect = (answer) => {
     if (!correctAnswers.includes(answer)) {
       setCorrectAnswer([...correctAnswers, answer]);
     }
   };
+
+  function getRandomTimeFrame() {
+    let index = Math.floor(Math.random() * timeFrames.length);
+    return timeFrames[index];
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -36,29 +38,25 @@ function GuessMovies() {
       return response.json();
     });
 
-    if (answer.Response === "True" && answer.Actors.includes(actor)) {
+    if (answer.Response === "True" && checkTimeFrame(answer.Runtime)) {
       submitCorrect(answer.Title);
     } else {
-      //Implement error showing to user
+      //Here we should implement a way to show the error to the user
       console.log("Wrong answer");
     }
 
     event.target.reset();
   }
 
-  function getRandomActor() {
-    let index = Math.floor(Math.random() * actors.length);
-    return actors[index];
-  }
   return (
     <GuessGame
-      gameLength={60}
+      gameLength={120}
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
-      header={`Guess the movies where ${actor} is a main actor`}
+      header={`Guess movies which are of the following length: ${timeFrame} min`}
       handleSubmit={handleSubmit}
     ></GuessGame>
   );
 }
 
-export default GuessMovies;
+export default GuessTime;
