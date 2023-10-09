@@ -6,10 +6,6 @@ function GuessMovies() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
   const [actor, setActor] = useState("");
 
-  useEffect(() => {
-    setActor(getRandomActor());
-  }, []);
-
   const actors = [
     "Jennifer Aniston",
     "Ryan Gosling",
@@ -23,6 +19,16 @@ function GuessMovies() {
     if (!correctAnswers.includes(answer)) {
       setCorrectAnswer([...correctAnswers, answer]);
     }
+  };
+
+  const [showError, setShowError] = useState(false);
+
+  const handleWrongAnswer = () => {
+    setShowError(true);
+
+    setTimeout(() => {
+      setShowError(false);
+    }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
   };
 
   async function handleSubmit(event) {
@@ -39,16 +45,16 @@ function GuessMovies() {
     if (answer.Response === "True" && answer.Actors.includes(actor)) {
       submitCorrect(answer.Title);
     } else {
-      //Implement error showing to user
+      handleWrongAnswer();
       console.log("Wrong answer");
     }
 
     event.target.reset();
   }
 
-  function getRandomActor() {
+  function setRandomActor() {
     let index = Math.floor(Math.random() * actors.length);
-    return actors[index];
+    setActor(actors[index]);
   }
   return (
     <GuessGame
@@ -57,6 +63,9 @@ function GuessMovies() {
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess the movies where ${actor} is a main actor`}
       handleSubmit={handleSubmit}
+      setRandom={setRandomActor}
+      showError={showError}
+      setShowError={setShowError}
     ></GuessGame>
   );
 }

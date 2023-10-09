@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ErrorMessage from "./ErrorMessage";
 
 function GuessGame(props) {
   //states used in guessing games
@@ -10,6 +11,7 @@ function GuessGame(props) {
   const startGame = () => {
     setIsVisible(false);
     props.setCorrectAnswer([]);
+    props.setRandom();
     setPoints(0);
     setIsVisible(true);
     setIsTimerRunning(true);
@@ -47,6 +49,14 @@ function GuessGame(props) {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  const handleWrongAnswer = () => {
+    props.setShowError(true);
+
+    setTimeout(() => {
+      props.setShowError(false);
+    }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
+  };
+
   return (
     <div>
       {isVisible && (
@@ -63,10 +73,18 @@ function GuessGame(props) {
                   disabled={!isTimerRunning}
                 ></input>
               </div>
+
               <button class="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 Submit
               </button>
-           
+
+              {/* <input
+                className="mt-2 border-1 border-black rounded-xl text-[20px]"
+                type="submit"
+                value="Submit"
+                disabled={!isTimerRunning}
+              /> */}
+
             </form>
             {props.correctAnswers.map((answer) => (
               <p key={answer}>{answer}</p>
@@ -77,6 +95,16 @@ function GuessGame(props) {
             </div>
             <div>{timer === 0 && <h1>Game Over!</h1>}</div>
           </div>
+
+          <div>{formatTime(timer)}</div>
+          <div>
+            <h1>Points: {points}</h1>
+          </div>
+          <div>
+          {props.showError && <ErrorMessage message="Wrong answer!" />}
+          </div>
+          <div>{timer === 0 && <h1>Game Over!</h1>}</div>
+
         </div>
       )}
       {!isTimerRunning && (
