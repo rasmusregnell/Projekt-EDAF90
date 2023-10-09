@@ -34,7 +34,7 @@ function GuessGame(props) {
           if (points > 0) {
             dispatch({
               type: `update${props.gameType}`,
-              highScoreEntry: [{ points: points }],
+              highScoreEntry: { points: points },
             });
           }
         }

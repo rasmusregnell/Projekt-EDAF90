@@ -17,6 +17,8 @@ function HighScorePage() {
           header="Highscore GuessTime"
           highScores={highScores[1]}
         ></HighScore>
+        {/* If we add more games, just add more highscores here,
+        but then we need to update highscore logic as well */}
       </div>
     </div>
   );

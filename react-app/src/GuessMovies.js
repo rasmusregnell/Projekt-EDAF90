@@ -50,7 +50,7 @@ function GuessMovies() {
   }
   return (
     <GuessGame
-      gameLength={60}
+      gameLength={15}
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess the movies where ${actor} is a main actor`}
