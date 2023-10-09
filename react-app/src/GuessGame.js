@@ -109,7 +109,6 @@ function GuessGame(props) {
           <div>
             {props.showError && <ErrorMessage message="Wrong answer!" />}
           </div>
-          <div>{timer === 0 && <h1>Game Over!</h1>}</div>
           <HighScore
             highScores={props.highScores}
             header={`Highscore ${props.gameType}`}

@@ -58,7 +58,7 @@ function GuessTime() {
 
   return (
     <GuessGame
-      gameLength={15}
+      gameLength={120}
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess movies which are of the following length: ${timeFrame} min`}
