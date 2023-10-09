@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ErrorMessage from "./ErrorMessage";
 
 function GuessGame(props) {
   //states used in guessing games
@@ -48,6 +49,14 @@ function GuessGame(props) {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
+  const handleWrongAnswer = () => {
+    props.setShowError(true);
+
+    setTimeout(() => {
+      props.setShowError(false);
+    }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
+  };
+
   return (
     <div>
       {isVisible && (
@@ -68,6 +77,7 @@ function GuessGame(props) {
                 className="mt-2 border-1 border-black rounded-xl text-[20px]"
                 type="submit"
                 value="Submit"
+                disabled={!isTimerRunning}
               />
             </form>
             {props.correctAnswers.map((answer) => (
@@ -77,6 +87,9 @@ function GuessGame(props) {
           <div>{formatTime(timer)}</div>
           <div>
             <h1>Points: {points}</h1>
+          </div>
+          <div>
+          {props.showError && <ErrorMessage message="Wrong answer!" />}
           </div>
           <div>{timer === 0 && <h1>Game Over!</h1>}</div>
         </div>

@@ -23,6 +23,17 @@ function GuessTime() {
     setTimeFrame(timeFrames[index]);
   }
 
+
+  const [showError, setShowError] = useState(false);
+
+  const handleWrongAnswer = () => {
+    setShowError(true);
+
+    setTimeout(() => {
+      setShowError(false);
+    }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
     let input = document.getElementById("movieInput").value;
@@ -37,7 +48,7 @@ function GuessTime() {
     if (answer.Response === "True" && checkTimeFrame(answer.Runtime)) {
       submitCorrect(answer.Title);
     } else {
-      //Here we should implement a way to show the error to the user
+      handleWrongAnswer();
       console.log("Wrong answer");
     }
 
@@ -52,6 +63,8 @@ function GuessTime() {
       header={`Guess movies which are of the following length: ${timeFrame} min`}
       handleSubmit={handleSubmit}
       setRandom={setRandomTimeFrame}
+      showError={showError}
+      setShowError={setShowError}
     ></GuessGame>
   );
 }
