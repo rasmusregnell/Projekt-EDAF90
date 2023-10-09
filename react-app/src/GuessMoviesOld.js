@@ -83,18 +83,18 @@ function GuessMoviesOld() {
         <div>
           <div className="container">
             <h1>Guess the movies where {actor} is a main actor</h1>
-            <form onSubmit={(e) => HandleSubmit(e, actor, submitCorrect)}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="movieInput"
-                  placeholder="Enter Movie or Series"
-                  disabled={!isTimerRunning}
-                ></input>
-              </div>
-              <input type="submit" value="Submit" />
-            </form>
+              <form onSubmit={(e) => HandleSubmit(e, actor, submitCorrect)}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="movieInput"
+                    placeholder="Enter Movie or Series"
+                    disabled={!isTimerRunning}
+                  ></input>
+                </div>
+                <input type="submit" value="Submit" />
+              </form>
             {correctAnswers.map((answer) => (
               <p key={answer}>{answer}</p>
             ))}

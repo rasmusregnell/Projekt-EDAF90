@@ -63,26 +63,25 @@ function GuessGame(props) {
                   disabled={!isTimerRunning}
                 ></input>
               </div>
-              <input
-                className="mt-2 border-1 border-black rounded-xl text-[20px]"
-                type="submit"
-                value="Submit"
-              />
+              <button class="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                Submit
+              </button>
+           
             </form>
             {props.correctAnswers.map((answer) => (
               <p key={answer}>{answer}</p>
             ))}
+            <div class="text-xl text-red-500 space-y-1">{formatTime(timer)}</div>
+            <div class="text-xl">Points:
+             {" " + points}
+            </div>
+            <div>{timer === 0 && <h1>Game Over!</h1>}</div>
           </div>
-          <div>{formatTime(timer)}</div>
-          <div>
-            <h1>Points: {points}</h1>
-          </div>
-          <div>{timer === 0 && <h1>Game Over!</h1>}</div>
         </div>
       )}
       {!isTimerRunning && (
         <button
-          className="mt-2 border-1 border-black rounded-xl text-[20px]"
+          className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           onClick={startGame}
         >
           Start!
