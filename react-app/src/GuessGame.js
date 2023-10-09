@@ -10,6 +10,7 @@ function GuessGame(props) {
   const startGame = () => {
     setIsVisible(false);
     props.setCorrectAnswer([]);
+    props.setRandom();
     setPoints(0);
     setIsVisible(true);
     setIsTimerRunning(true);

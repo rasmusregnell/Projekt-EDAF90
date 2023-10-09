@@ -6,10 +6,6 @@ function GuessMovies() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
   const [actor, setActor] = useState("");
 
-  useEffect(() => {
-    setActor(getRandomActor());
-  }, []);
-
   const actors = [
     "Jennifer Aniston",
     "Ryan Gosling",
@@ -46,9 +42,9 @@ function GuessMovies() {
     event.target.reset();
   }
 
-  function getRandomActor() {
+  function setRandomActor() {
     let index = Math.floor(Math.random() * actors.length);
-    return actors[index];
+    setActor(actors[index]);
   }
   return (
     <GuessGame
@@ -57,6 +53,7 @@ function GuessMovies() {
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess the movies where ${actor} is a main actor`}
       handleSubmit={handleSubmit}
+      setRandom={setRandomActor}
     ></GuessGame>
   );
 }

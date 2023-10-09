@@ -6,10 +6,6 @@ function GuessTime() {
   const [timeFrame, setTimeFrame] = useState([]);
   const timeFrames = ["80-120", "100-140", "120-150"];
 
-  useEffect(() => {
-    setTimeFrame(getRandomTimeFrame());
-  }, []);
-
   function checkTimeFrame(runtime) {
     const time = parseInt(runtime.split(" ")[0]);
     const timeSpan = timeFrame.split("-");
@@ -22,9 +18,9 @@ function GuessTime() {
     }
   };
 
-  function getRandomTimeFrame() {
+  function setRandomTimeFrame() {
     let index = Math.floor(Math.random() * timeFrames.length);
-    return timeFrames[index];
+    setTimeFrame(timeFrames[index]);
   }
 
   async function handleSubmit(event) {
@@ -55,6 +51,7 @@ function GuessTime() {
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess movies which are of the following length: ${timeFrame} min`}
       handleSubmit={handleSubmit}
+      setRandom={setRandomTimeFrame}
     ></GuessGame>
   );
 }
