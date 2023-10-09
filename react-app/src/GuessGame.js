@@ -106,11 +106,6 @@ function GuessGame(props) {
             </div>
             <div>{timer === 0 && <h1>Game Over!</h1>}</div>
           </div>
-
-          <div>{formatTime(timer)}</div>
-          <div>
-            <h1>Points: {points}</h1>
-          </div>
           <div>
             {props.showError && <ErrorMessage message="Wrong answer!" />}
           </div>
