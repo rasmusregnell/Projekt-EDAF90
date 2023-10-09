@@ -1,10 +1,12 @@
 import { act } from "react-dom/test-utils";
 import GuessGame from "./GuessGame";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { HighScoreContext } from "./Context";
 
 function GuessMovies() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
   const [actor, setActor] = useState("");
+  const highScores = useContext(HighScoreContext);
 
   const actors = [
     "Jennifer Aniston",
@@ -54,6 +56,9 @@ function GuessMovies() {
       header={`Guess the movies where ${actor} is a main actor`}
       handleSubmit={handleSubmit}
       setRandom={setRandomActor}
+      highScores={highScores[0]}
+      gameType="GuessMovies"
+      // highScoreHeader="Highscore GuessMovies"
     ></GuessGame>
   );
 }

@@ -1,10 +1,12 @@
 import GuessGame from "./GuessGame";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { HighScoreContext } from "./Context";
 
 function GuessTime() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
   const [timeFrame, setTimeFrame] = useState([]);
   const timeFrames = ["80-120", "100-140", "120-150"];
+  const highScores = useContext(HighScoreContext);
 
   function checkTimeFrame(runtime) {
     const time = parseInt(runtime.split(" ")[0]);
@@ -46,12 +48,15 @@ function GuessTime() {
 
   return (
     <GuessGame
-      gameLength={120}
+      gameLength={15}
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess movies which are of the following length: ${timeFrame} min`}
       handleSubmit={handleSubmit}
       setRandom={setRandomTimeFrame}
+      highScores={highScores[1]}
+      gameType="GuessTime"
+      //highScoreHeader="Highscore GuessTime"
     ></GuessGame>
   );
 }

@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import HighScore from "./HighScore";
+import { DispatchContext } from "./Context";
 
 function GuessGame(props) {
   //states used in guessing games
@@ -6,6 +8,7 @@ function GuessGame(props) {
   const [timer, setTimer] = useState(props.gameLength);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [points, setPoints] = useState(0);
+  const dispatch = useContext(DispatchContext);
 
   const startGame = () => {
     setIsVisible(false);
@@ -20,7 +23,6 @@ function GuessGame(props) {
   // Keeps track of timer variable and updates it every second
   useEffect(() => {
     let countdown;
-
     if (isTimerRunning) {
       countdown = setInterval(() => {
         if (timer > 0) {
@@ -28,6 +30,13 @@ function GuessGame(props) {
         } else {
           clearInterval(countdown);
           setIsTimerRunning(false);
+          // If points > 0 we have a new score to set, TODO: High score should be sorted
+          if (points > 0) {
+            dispatch({
+              type: `update${props.gameType}`,
+              highScoreEntry: [`points: ${points}`],
+            });
+          }
         }
       }, 1000);
     }
@@ -79,6 +88,10 @@ function GuessGame(props) {
             <h1>Points: {points}</h1>
           </div>
           <div>{timer === 0 && <h1>Game Over!</h1>}</div>
+          <HighScore
+            highScores={props.highScores}
+            header={`Highscore ${props.gameType}`}
+          ></HighScore>
         </div>
       )}
       {!isTimerRunning && (
