@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Outlet } from "react-router-dom";
 import { HighScoreContext, DispatchContext } from "./Context.js";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 function App() {
   const testHighScore1 = [{ points: 5 }, { points: 4 }, { points: 1 }];
@@ -21,6 +21,17 @@ function App() {
       .includes(action.highScoreEntry.points);
   }
 
+  //updates highScores from localStorage if it exists
+  useEffect(() => {
+    const highScoresStorage = window.localStorage.getItem("highScores");
+    if (highScoresStorage) {
+      dispatch({
+        type: "setHighScores",
+        highScores: JSON.parse(highScoresStorage),
+      });
+    }
+  }, []);
+
   //update highScores based on action = {type: "update", highScoreEntry: [....]}
   function reducerFunc(highScores, action) {
     if (action.type === "updateGuessMovies") {
@@ -31,7 +42,13 @@ function App() {
       }
       //Here we add the valid highscore:
       console.log("NEW HIGHSCORE SET");
-      return [[...highScores[0], action.highScoreEntry], [...highScores[1]]];
+      const newHighScore = [
+        [...highScores[0], action.highScoreEntry],
+        [...highScores[1]],
+      ];
+      //update local storage
+      window.localStorage.setItem("highScores", JSON.stringify(newHighScore));
+      return newHighScore;
     } else if (action.type === "updateGuessTime") {
       //Checks if we should add the highscore
       if (checkIfIncludes(highScores[1], action)) {
@@ -41,7 +58,15 @@ function App() {
 
       //Here we add the valid highscore:
       console.log("NEW HIGHSCORE SET");
-      return [[...highScores[0]], [...highScores[1], action.highScoreEntry]];
+      const newHighScore = [
+        [...highScores[0]],
+        [...highScores[1], action.highScoreEntry],
+      ];
+      //update local storage
+      window.localStorage.setItem("highScores", JSON.stringify(newHighScore));
+      return newHighScore;
+    } else if (action.type === "setHighScores") {
+      return action.highScores;
     } else {
       console.log("wrong action type");
     }
