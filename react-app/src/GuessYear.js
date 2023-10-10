@@ -1,10 +1,13 @@
 import GuessGame from "./GuessGame";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import movieTitles from "./TopMovies.json";
+import { HighScoreContext } from "./Context";
 
 function GuessYear(){
     const [correctAnswers, setCorrectAnswer] = useState([]);
     const [movie, setMovie] = useState("");
+    const highScores = useContext(HighScoreContext);
+    const [showError, setShowError] = useState(false);
 
     function setRandomMovie() {
         let index = Math.floor(Math.random() * movieTitles.length);
@@ -15,6 +18,14 @@ function GuessYear(){
         if (!correctAnswers.includes(answer)) {
           setCorrectAnswer([...correctAnswers, answer]);
         }
+    };
+
+    const handleWrongAnswer = () => {
+      setShowError(true);
+  
+      setTimeout(() => {
+        setShowError(false);
+      }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
     };
 
     async function handleSubmit(event) {
@@ -31,7 +42,7 @@ function GuessYear(){
         if (answer.Response === "True" && answer.Year === yearGuess) {
           submitCorrect(answer.Title);
         } else {
-          //Here we should implement a way to show the error to the user
+          handleWrongAnswer();
           console.log("Wrong answer");
         }
         
@@ -45,8 +56,13 @@ function GuessYear(){
           correctAnswers={correctAnswers}
           setCorrectAnswer={setCorrectAnswer}
           header={`Which year was "${movie}" released?`}
+          placeholder="Enter year"
           handleSubmit={handleSubmit}
           setRandom={setRandomMovie}
+          showError={showError}
+          highScores={highScores[2]}
+          gameType="GuessYear"
+          //highScoreHeader="Highscore GuessYear"
         ></GuessGame>
     );
 }

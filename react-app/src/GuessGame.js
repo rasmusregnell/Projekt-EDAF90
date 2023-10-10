@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import ErrorMessage from "./ErrorMessage";
+import HighScore from "./HighScore";
+import { DispatchContext } from "./Context";
 
 function GuessGame(props) {
   //states used in guessing games
@@ -6,6 +9,7 @@ function GuessGame(props) {
   const [timer, setTimer] = useState(props.gameLength);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
   const [points, setPoints] = useState(0);
+  const dispatch = useContext(DispatchContext);
 
   const startGame = () => {
     setIsVisible(false);
@@ -20,7 +24,6 @@ function GuessGame(props) {
   // Keeps track of timer variable and updates it every second
   useEffect(() => {
     let countdown;
-
     if (isTimerRunning) {
       countdown = setInterval(() => {
         if (timer > 0) {
@@ -28,6 +31,13 @@ function GuessGame(props) {
         } else {
           clearInterval(countdown);
           setIsTimerRunning(false);
+          // If points > 0 we have a new score to set, TODO: High score should be sorted
+          if (points > 0) {
+            dispatch({
+              type: `update${props.gameType}`,
+              highScoreEntry: { points: points },
+            });
+          }
         }
       }, 1000);
     }
@@ -60,30 +70,46 @@ function GuessGame(props) {
                   type="text"
                   className="form-control"
                   id="movieInput"
-                  placeholder="Enter Movie or Series"
+                  placeholder={props.placeholder}
                   disabled={!isTimerRunning}
                 ></input>
               </div>
-              <input
+
+              <button className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                Submit
+              </button>
+
+              {/* <input
                 className="mt-2 border-1 border-black rounded-xl text-[20px]"
                 type="submit"
                 value="Submit"
-              />
+                disabled={!isTimerRunning}
+              /> */}
             </form>
             {props.correctAnswers.map((answer) => (
               <p key={answer}>{answer}</p>
             ))}
+            <div className="text-xl text-red-500 space-y-1">
+              {formatTime(timer)}
+            </div>
+            <div className="text-xl">
+              Points:
+              {" " + points}
+            </div>
+            <div>{timer === 0 && <h1>Game Over!</h1>}</div>
           </div>
-          <div>{formatTime(timer)}</div>
           <div>
-            <h1>Points: {points}</h1>
+            {props.showError && <ErrorMessage message="Wrong answer!" />}
           </div>
-          <div>{timer === 0 && <h1>Game Over!</h1>}</div>
+          <HighScore
+            highScores={props.highScores}
+            header={`Highscore ${props.gameType}`}
+          ></HighScore>
         </div>
       )}
       {!isTimerRunning && (
         <button
-          className="mt-2 border-1 border-black rounded-xl text-[20px]"
+          className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           onClick={startGame}
         >
           Start!

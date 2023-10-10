@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import GuessMoviesOld from "./GuessMoviesOld";
 import GuessMovies from "./GuessMovies";
 import GuessTime from "./GuessTime";
 import GuessYear from "./GuessYear";
+import HighScorePage from "./HighScorePage";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1>Welcome to Movie games</h1>,
+        element: <HighScorePage />,
       },
       {
         path: "what-movies",

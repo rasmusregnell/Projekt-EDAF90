@@ -1,10 +1,12 @@
 import GuessGame from "./GuessGame";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { HighScoreContext } from "./Context";
 
 function GuessTime() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
   const [timeFrame, setTimeFrame] = useState([]);
   const timeFrames = ["80-120", "100-140", "120-150"];
+  const highScores = useContext(HighScoreContext);
 
   function checkTimeFrame(runtime) {
     const time = parseInt(runtime.split(" ")[0]);
@@ -23,6 +25,16 @@ function GuessTime() {
     setTimeFrame(timeFrames[index]);
   }
 
+  const [showError, setShowError] = useState(false);
+
+  const handleWrongAnswer = () => {
+    setShowError(true);
+
+    setTimeout(() => {
+      setShowError(false);
+    }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
     let input = document.getElementById("movieInput").value;
@@ -37,7 +49,7 @@ function GuessTime() {
     if (answer.Response === "True" && checkTimeFrame(answer.Runtime)) {
       submitCorrect(answer.Title);
     } else {
-      //Here we should implement a way to show the error to the user
+      handleWrongAnswer();
       console.log("Wrong answer");
     }
 
@@ -50,8 +62,13 @@ function GuessTime() {
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess movies which are of the following length: ${timeFrame} min`}
+      placeholder="Enter movie or series"
       handleSubmit={handleSubmit}
       setRandom={setRandomTimeFrame}
+      showError={showError}
+      highScores={highScores[1]}
+      gameType="GuessTime"
+      //highScoreHeader="Highscore GuessTime"
     ></GuessGame>
   );
 }

@@ -1,10 +1,12 @@
 import { act } from "react-dom/test-utils";
 import GuessGame from "./GuessGame";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { HighScoreContext } from "./Context";
 
 function GuessMovies() {
   const [correctAnswers, setCorrectAnswer] = useState([]);
   const [actor, setActor] = useState("");
+  const highScores = useContext(HighScoreContext);
 
   const actors = [
     "Jennifer Aniston",
@@ -21,6 +23,16 @@ function GuessMovies() {
     }
   };
 
+  const [showError, setShowError] = useState(false);
+
+  const handleWrongAnswer = () => {
+    setShowError(true);
+
+    setTimeout(() => {
+      setShowError(false);
+    }, 3000); // Set the timeout to hide the message after 3 seconds (adjust as needed)
+  };
+
   async function handleSubmit(event) {
     event.preventDefault();
     let input = document.getElementById("movieInput").value;
@@ -35,7 +47,7 @@ function GuessMovies() {
     if (answer.Response === "True" && answer.Actors.includes(actor)) {
       submitCorrect(answer.Title);
     } else {
-      //Implement error showing to user
+      handleWrongAnswer();
       console.log("Wrong answer");
     }
 
@@ -52,8 +64,13 @@ function GuessMovies() {
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
       header={`Guess the movies where ${actor} is a main actor`}
+      placeholder="Enter movie or series"
       handleSubmit={handleSubmit}
       setRandom={setRandomActor}
+      showError={showError}
+      highScores={highScores[0]}
+      gameType="GuessMovies"
+      // highScoreHeader="Highscore GuessMovies"
     ></GuessGame>
   );
 }
