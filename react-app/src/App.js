@@ -1,6 +1,4 @@
-//import logo from "./logo.svg";
 import "./App.css";
-//import React from 'react';
 import Navbar from "./NavBar";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -122,7 +120,3 @@ function Footer() {
 }
 
 export default App;
-{
-  /*28da6e60 
-exempel: https://www.omdbapi.com/?apikey=28da6e60&t=hope*/
-}

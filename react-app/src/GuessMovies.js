@@ -1,6 +1,5 @@
-import { act } from "react-dom/test-utils";
 import GuessGame from "./GuessGame";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { HighScoreContext } from "./Context";
 
 function GuessMovies() {
@@ -70,7 +69,6 @@ function GuessMovies() {
       showError={showError}
       highScores={highScores[0]}
       gameType="GuessMovies"
-      // highScoreHeader="Highscore GuessMovies"
     ></GuessGame>
   );
 }

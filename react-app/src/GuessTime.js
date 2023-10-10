@@ -1,5 +1,5 @@
 import GuessGame from "./GuessGame";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { HighScoreContext } from "./Context";
 
 function GuessTime() {
@@ -68,7 +68,6 @@ function GuessTime() {
       showError={showError}
       highScores={highScores[1]}
       gameType="GuessTime"
-      //highScoreHeader="Highscore GuessTime"
     ></GuessGame>
   );
 }

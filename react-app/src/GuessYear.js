@@ -62,7 +62,6 @@ function GuessYear(){
           showError={showError}
           highScores={highScores[2]}
           gameType="GuessYear"
-          //highScoreHeader="Highscore GuessYear"
         ></GuessGame>
     );
 }
