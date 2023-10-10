@@ -20,6 +20,12 @@ function Navbar() {
             Guess the time
           </NavLink>
         </li>
+
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/guess-year">
+            Which year was it released?
+          </NavLink>
+        </li>
       </ul>
     );
   }

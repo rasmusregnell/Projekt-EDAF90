@@ -3,6 +3,7 @@ import App from "./App";
 import GuessMoviesOld from "./GuessMoviesOld";
 import GuessMovies from "./GuessMovies";
 import GuessTime from "./GuessTime";
+import GuessYear from "./GuessYear";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "guess-time",
         element: <GuessTime />,
+      },
+      {
+        path: "guess-year",
+        element: <GuessYear />,
       },
       {
         path: "*",
