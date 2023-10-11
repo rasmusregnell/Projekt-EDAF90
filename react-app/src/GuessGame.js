@@ -62,11 +62,11 @@ function GuessGame(props) {
   return (
     <div>
       {isVisible && (
-        <div>
-          <div className="container">
+        <div className="py-2">
+          <div className="container py-2">
             <h1>{props.header}</h1>
             <form onSubmit={(e) => props.handleSubmit(e)}>
-              <div className="form-group">
+              <div className="form-group py-2">
                 <input
                   type="text"
                   className="form-control"
@@ -82,10 +82,10 @@ function GuessGame(props) {
 
             </form>
 
-            <br/>
+            
 
             <div className="TimerContainer">
-              <div className="text-xl text-red-500 space-y-10">
+              <div className="text-xl text-red-500 space-y-1 py-2">
                 {formatTime(timer)}
               </div>
             </div>
@@ -98,13 +98,13 @@ function GuessGame(props) {
 
             <br/>
 
-            <div className="text-xl">
+            <div className="text-lg">
               Points:
               {" " + points}
             </div>
 
 
-            <div>{timer === 0 && <h1>Game Over!</h1>}</div>
+            <div>{timer === 0 && <div className="text-xl font-bold">Game Over!</div>}</div>
           </div>
           <div>
             {props.showError && <ErrorMessage message="Wrong answer!" />}
