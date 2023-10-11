@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import ErrorMessage from "./ErrorMessage";
 import HighScore from "./HighScore";
 import { DispatchContext } from "./Context";
+import Answerbar from "./Answerbar";
 
 function GuessGame(props) {
   //states used in guessing games
@@ -79,23 +80,30 @@ function GuessGame(props) {
                 Submit
               </button>
 
-              {/* <input
-                className="mt-2 border-1 border-black rounded-xl text-[20px]"
-                type="submit"
-                value="Submit"
-                disabled={!isTimerRunning}
-              /> */}
             </form>
-            {props.correctAnswers.map((answer) => (
-              <p key={answer}>{answer}</p>
-            ))}
-            <div className="text-xl text-red-500 space-y-1">
-              {formatTime(timer)}
+
+            <br/>
+
+            <div className="TimerContainer">
+              <div className="text-xl text-red-500 space-y-10">
+                {formatTime(timer)}
+              </div>
             </div>
+
+            <br/>
+
+            {props.correctAnswers.map((answer) => (
+              <Answerbar key={answer} answer={answer} />
+            ))}
+
+            <br/>
+
             <div className="text-xl">
               Points:
               {" " + points}
             </div>
+
+
             <div>{timer === 0 && <h1>Game Over!</h1>}</div>
           </div>
           <div>
