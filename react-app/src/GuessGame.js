@@ -64,6 +64,9 @@ function GuessGame(props) {
       {isVisible && (
         <div className="py-2">
           <div className="container py-2">
+          <div className="py-2">{timer === 0 && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Game Over!</strong>
+                                    </div>}</div>
             <h1>{props.header}</h1>
             <form onSubmit={(e) => props.handleSubmit(e)}>
               <div className="form-group py-2">
@@ -76,7 +79,8 @@ function GuessGame(props) {
                 ></input>
               </div>
 
-              <button className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              <button className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                disabled={!isTimerRunning}>
                 Submit
               </button>
 
@@ -84,14 +88,13 @@ function GuessGame(props) {
 
             
 
-            <div className="TimerContainer">
+            <div className="TimerContainer py-2">
               <div className="text-xl text-red-500 space-y-1 py-2">
                 {formatTime(timer)}
               </div>
             </div>
-
-            <br/>
-
+            
+            
             {props.correctAnswers.map((answer) => (
               <Answerbar key={answer} answer={answer} />
             ))}
@@ -103,8 +106,7 @@ function GuessGame(props) {
               {" " + points}
             </div>
 
-
-            <div>{timer === 0 && <div className="text-xl font-bold">Game Over!</div>}</div>
+            
           </div>
           <div>
             {props.showError && <ErrorMessage message="Wrong answer!" />}
