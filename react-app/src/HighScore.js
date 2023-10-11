@@ -4,7 +4,9 @@ function HighScore(props) {
   });
 
   return (
-    <div className="h-[200px] w-[200px] border-1 border-black flex flex-col items-center">
+    
+    <div className="h-[200px] w-[200px] border-1 rounded border-blue-500 flex flex-col items-center">
+
       <span className="">{props.header}</span>
       {highScoresSorted.map((e) => (
         <div key={e.points} className="block">
