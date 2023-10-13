@@ -59,6 +59,7 @@ function GuessMovies() {
   }
   return (
     <GuessGame
+     
       gameLength={60}
       correctAnswers={correctAnswers}
       setCorrectAnswer={setCorrectAnswer}
@@ -69,7 +70,9 @@ function GuessMovies() {
       showError={showError}
       highScores={highScores[0]}
       gameType="GuessMovies"
-    ></GuessGame>
+    >
+      
+    </GuessGame>
   );
 }
 

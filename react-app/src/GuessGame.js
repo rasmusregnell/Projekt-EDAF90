@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import ErrorMessage from "./ErrorMessage";
 import HighScore from "./HighScore";
 import { DispatchContext } from "./Context";
+import Answerbar from "./Answerbar";
 
 function GuessGame(props) {
   //states used in guessing games
@@ -61,11 +62,14 @@ function GuessGame(props) {
   return (
     <div>
       {isVisible && (
-        <div>
-          <div className="container">
+        <div className="py-2">
+          <div className="container py-2">
+          <div className="py-2">{timer === 0 && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Game Over!</strong>
+                                    </div>}</div>
             <h1>{props.header}</h1>
             <form onSubmit={(e) => props.handleSubmit(e)}>
-              <div className="form-group">
+              <div className="form-group py-2">
                 <input
                   type="text"
                   className="form-control"
@@ -75,28 +79,34 @@ function GuessGame(props) {
                 ></input>
               </div>
 
-              <button className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              <button className="hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                disabled={!isTimerRunning}>
                 Submit
               </button>
 
-              {/* <input
-                className="mt-2 border-1 border-black rounded-xl text-[20px]"
-                type="submit"
-                value="Submit"
-                disabled={!isTimerRunning}
-              /> */}
             </form>
-            {props.correctAnswers.map((answer) => (
-              <p key={answer}>{answer}</p>
-            ))}
-            <div className="text-xl text-red-500 space-y-1">
-              {formatTime(timer)}
+
+            
+
+            <div className="TimerContainer py-2">
+              <div className="text-xl text-red-500 space-y-1 py-2">
+                {formatTime(timer)}
+              </div>
             </div>
-            <div className="text-xl">
+            
+            
+            {props.correctAnswers.map((answer) => (
+              <Answerbar key={answer} answer={answer} />
+            ))}
+
+            <br/>
+
+            <div className="text-lg">
               Points:
               {" " + points}
             </div>
-            <div>{timer === 0 && <h1>Game Over!</h1>}</div>
+
+            
           </div>
           <div>
             {props.showError && <ErrorMessage message="Wrong answer!" />}
