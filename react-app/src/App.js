@@ -7,10 +7,7 @@ import { HighScoreContext, DispatchContext } from "./Context.js";
 import { useEffect, useReducer } from "react";
 
 function App() {
-  const testHighScore1 = [{ points: 5 }, { points: 4 }, { points: 1 }];
-  const testHighScore2 = [{ points: 7 }, { points: 8 }, { points: 5 }];
-  const testHighScore3 = [{ points: 8 }, { points: 10 }, { points: 3 }];
-  const initialState = [testHighScore1, testHighScore2, testHighScore3];
+  const initialState = [[], [], []];
   const [highScores, dispatch] = useReducer(reducerFunc, initialState);
 
   //This method is for checking if the highscore we want to add already exists
